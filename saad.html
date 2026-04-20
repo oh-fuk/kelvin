@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agency.ac — Your One Stop Agency Account</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        /* ── RESET & BASE ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a2332;
+            background: #ffffff;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ── DESIGN TOKENS ── */
+        :root {
+            --navy: #0f2d5e;
+            --gold: #e8a020;
+            --gold-light: #fef3dc;
+            --slate: #5a6a7a;
+            --light: #f7f9fc;
+            --border: #e4eaf2;
+            --white: #ffffff;
+            --radius: 12px;
+            --shadow: 0 2px 16px rgba(15, 45, 94, .08);
+            --shadow-hover: 0 8px 32px rgba(15, 45, 94, .14);
+            --transition: .25s ease;
+        }
+
+        /* ── UTILITIES ── */
+        .container {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: .75rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            background: var(--gold-light);
+            padding: 4px 14px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+        }
+
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.2;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 28px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: .9375rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+            min-height: 48px;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+
+        .btn-gold:hover {
+            background: #cf8e18;
+            border-color: #cf8e18;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(232, 160, 32, .35);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--navy);
+            border-color: var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--navy);
+            background: var(--light);
+            transform: translateY(-1px);
+        }
+
+        /* ── SCROLL REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: .1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: .2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: .3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: .4s;
+        }
+
+        /* ════════════════════════════════
+       NAV
+    ════════════════════════════════ */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow var(--transition);
+        }
+
+        .nav.scrolled {
+            box-shadow: 0 2px 20px rgba(15, 45, 94, .1);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -.01em;
+        }
+
+        .nav-logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            font-size: .875rem;
+            font-weight: 500;
+            color: var(--slate);
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: color var(--transition), background var(--transition);
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: var(--navy);
+            background: var(--light);
+        }
+
+        .nav-links a.active {
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-cta {
+            padding: 9px 20px;
+            font-size: .875rem;
+            min-height: 40px;
+        }
+
+        .nav-fb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--light);
+            color: var(--navy);
+            transition: background var(--transition), color var(--transition);
+        }
+
+        .nav-fb:hover {
+            background: #1877f2;
+            color: var(--white);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background var(--transition);
+        }
+
+        .hamburger:hover {
+            background: var(--light);
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--navy);
+            border-radius: 2px;
+            transition: transform .3s ease, opacity .3s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* Mobile nav drawer */
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            background: var(--white);
+            border-top: 1px solid var(--border);
+            padding: 16px 24px 24px;
+            gap: 4px;
+        }
+
+        .mobile-nav.open {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            font-size: .9375rem;
+            font-weight: 500;
+            color: var(--slate);
+            padding: 12px 8px;
+            border-bottom: 1px solid var(--border);
+            transition: color var(--transition);
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--navy);
+        }
+
+        .mobile-nav .btn {
+            margin-top: 12px;
+            justify-content: center;
+        }
+
+        /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+        .hero {
+            background: var(--white);
+            padding: 80px 0 72px;
+            overflow: hidden;
+        }
+
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .hero-eyebrow {
+            margin-bottom: 20px;
+        }
+
+        .hero-h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.25rem, 5vw, 3.75rem);
+            font-weight: 900;
+            color: var(--navy);
+            line-height: 1.1;
+            letter-spacing: -.02em;
+            margin-bottom: 20px;
+        }
+
+        .hero-h1 span {
+            color: var(--gold);
+        }
+
+        .hero-sub {
+            font-size: 1.0625rem;
+            color: var(--slate);
+            line-height: 1.7;
+            max-width: 480px;
+            margin-bottom: 36px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* Hero right — stats card */
+        .hero-visual {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .hero-card-main {
+            background: var(--navy);
+            border-radius: 20px;
+            padding: 36px 32px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card-main::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 180px;
+            height: 180px;
+            background: rgba(232, 160, 32, .15);
+            border-radius: 50%;
+        }
+
+        .hero-card-main::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, .05);
+            border-radius: 50%;
+        }
+
+        .hero-card-label {
+            font-size: .75rem;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .hero-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.3;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-stat-item {}
+
+        .hero-stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .hero-stat-desc {
+            font-size: .8125rem;
+            color: rgba(255, 255, 255, .7);
+            line-height: 1.4;
+        }
+
+        .hero-cards-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .hero-mini-card {
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .hero-mini-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--gold-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .hero-mini-icon svg {
+            color: var(--gold);
+        }
+
+        .hero-mini-text {}
+
+        .hero-mini-title {
+            font-size: .875rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 2px;
+        }
+
+        .hero-mini-sub {
+            font-size: .75rem;
+            color: var(--slate);
+        }
+
+        /* ════════════════════════════════
+       PRODUCTS
+    ════════════════════════════════ */
+        .products {
+            background: var(--light);
+            padding: 96px 0;
+        }
+
+        .products-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .products-header p {
+            font-size: 1.0625rem;
+            color: var(--slate);
+            max-width: 520px;
+            margin: 12px auto 0;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .product-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: transform var(--transition), box-shadow var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-card-accent {
+            height: 4px;
+            width: 100%;
+        }
+
+        .product-card-body {
+            padding: 28px 28px 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1875rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .product-desc {
+            font-size: .875rem;
+            color: var(--slate);
+            line-height: 1.6;
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .product-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: .875rem;
+            font-weight: 600;
+            color: var(--navy);
+            transition: gap var(--transition), color var(--transition);
+        }
+
+        .product-link:hover {
+            color: var(--gold);
+            gap: 10px;
+        }
+
+        .product-link svg {
+            transition: transform var(--transition);
+        }
+
+        .product-link:hover svg {
+            transform: translateX(2px);
+        }
+
+        /* Pagination dots */
+        .products-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 40px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: background var(--transition), width var(--transition);
+        }
+
+        .dot.active {
+            background: var(--gold);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* ════════════════════════════════
+       WHY SECTION
+    ════════════════════════════════ */
+        .why {
+            background: var(--white);
+            padding: 96px 0;
+        }
+
+        .why-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+
+        .why-left {}
+
+        .why-left .section-heading {
+            margin-bottom: 16px;
+        }
+
+        .why-left p {
+            font-size: 1rem;
+            color: var(--slate);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .why-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gold-light);
+            border: 1px solid rgba(232, 160, 32, .3);
+            border-radius: 10px;
+            padding: 14px 20px;
+        }
+
+        .why-badge-text {
+            font-size: .875rem;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .why-badge-sub {
+            font-size: .75rem;
+            color: var(--slate);
+        }
+
+        .why-right {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .why-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--white);
+            transition: box-shadow var(--transition), border-color var(--transition);
+        }
+
+        .why-item:hover {
+            box-shadow: var(--shadow);
+            border-color: rgba(232, 160, 32, .4);
+        }
+
+        .why-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--gold-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .why-icon svg {
+            color: var(--gold);
+        }
+
+        .why-text {}
+
+        .why-title {
+            font-size: .9375rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 4px;
+            letter-spacing: .01em;
+        }
+
+        .why-desc {
+            font-size: .875rem;
+            color: var(--slate);
+            line-height: 1.6;
+        }
+
+        /* ════════════════════════════════
+       APPLY NOW
+    ════════════════════════════════ */
+        .apply {
+            background: var(--light);
+            padding: 96px 0;
+        }
+
+        .apply-inner {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 64px;
+            align-items: start;
+        }
+
+        .apply-left {}
+
+        .apply-left .section-heading {
+            margin-bottom: 16px;
+        }
+
+        .apply-left>p {
+            font-size: 1rem;
+            color: var(--slate);
+            line-height: 1.7;
+            margin-bottom: 36px;
+        }
+
+        .apply-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .apply-contact-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--gold-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .apply-contact-icon svg {
+            color: var(--gold);
+        }
+
+        .apply-contact-label {
+            font-size: .75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            color: var(--slate);
+            margin-bottom: 2px;
+        }
+
+        .apply-contact-value {
+            font-size: .9375rem;
+            font-weight: 500;
+            color: var(--navy);
+            line-height: 1.5;
+        }
+
+        /* Form */
+        .apply-form {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            font-size: .8125rem;
+            font-weight: 600;
+            color: var(--navy);
+            letter-spacing: .01em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 12px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: .9375rem;
+            color: var(--navy);
+            background: var(--white);
+            transition: border-color var(--transition), box-shadow var(--transition);
+            outline: none;
+            min-height: 48px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(232, 160, 32, .15);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            width: 100%;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+        .footer {
+            background: var(--navy);
+            color: rgba(255, 255, 255, .75);
+            padding: 72px 0 0;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 56px;
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        .footer-brand {}
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .footer-logo span {
+            color: var(--gold);
+        }
+
+        .footer-tagline {
+            font-size: .875rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            max-width: 240px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, .7);
+            transition: background var(--transition), color var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: #1877f2;
+            color: var(--white);
+        }
+
+        .footer-col-title {
+            font-size: .8125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col ul a {
+            font-size: .875rem;
+            color: rgba(255, 255, 255, .65);
+            transition: color var(--transition);
+        }
+
+        .footer-col ul a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            padding: 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy {
+            font-size: .8125rem;
+            color: rgba(255, 255, 255, .45);
+        }
+
+        .footer-address {
+            font-size: .8125rem;
+            color: rgba(255, 255, 255, .45);
+            text-align: right;
+        }
+
+        /* ════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .nav-links,
+            .nav-right {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                padding: 56px 0 48px;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .hero-cards-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .products {
+                padding: 64px 0;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .why {
+                padding: 64px 0;
+            }
+
+            .why-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .apply {
+                padding: 64px 0;
+            }
+
+            .apply-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .apply-form {
+                padding: 28px 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-address {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-cards-row {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .hero-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ════════════════════════════════
+       NAV
+  ════════════════════════════════ -->
+    <header class="nav" id="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="/" class="nav-logo">Agency<span>.ac</span></a>
+
+                <nav class="nav-links" aria-label="Primary navigation">
+                    <a href="/" class="active">Home</a>
+                    <a href="/about">About</a>
+                    <a href="#">Products &amp; Services</a>
+                    <a href="/medicare">Medicare</a>
+                    <a href="/annuity">Annuity</a>
+                    <a href="/activities">Activities</a>
+                </nav>
+
+                <div class="nav-right">
+                    <a href="#apply" class="btn btn-gold nav-cta">Contact Us</a>
+                    <a href="https://www.facebook.com" target="_blank" rel="noopener" class="nav-fb"
+                        aria-label="Facebook">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                        </svg>
+                    </a>
+                </div>
+
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile nav -->
+        <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="#">Products &amp; Services</a>
+            <a href="/medicare">Medicare</a>
+            <a href="/annuity">Annuity</a>
+            <a href="/activities">Activities</a>
+            <a href="#apply" class="btn btn-gold">Contact Us</a>
+        </nav>
+    </header>
+
+    <!-- ════════════════════════════════
+       HERO
+  ════════════════════════════════ -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-inner">
+
+                <!-- Left: text -->
+                <div class="hero-left">
+                    <div class="hero-eyebrow reveal">
+                        <span class="section-label">One Stop Agency Account</span>
+                    </div>
+                    <h1 class="hero-h1 reveal reveal-delay-1">
+                        Welcome to<br><span>AGENCY.AC</span>
+                    </h1>
+                    <p class="hero-sub reveal reveal-delay-2">
+                        Your one stop agency account to contract for Life, Medicare, Annuity, Health, Dental, Vision,
+                        P&amp;C
+                    </p>
+                    <div class="hero-actions reveal reveal-delay-3">
+                        <a href="#apply" class="btn btn-gold">
+                            Get Contracted Now
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <a href="#products" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+
+                <!-- Right: visual cards -->
+                <div class="hero-visual reveal reveal-delay-2">
+                    <div class="hero-card-main">
+                        <div class="hero-card-label">Agency.ac Platform</div>
+                        <div class="hero-card-title">Everything you need to grow your insurance business</div>
+                        <div class="hero-stats">
+                            <div class="hero-stat-item">
+                                <div class="hero-stat-num">7+</div>
+                                <div class="hero-stat-desc">Product Lines Available</div>
+                            </div>
+                            <div class="hero-stat-item">
+                                <div class="hero-stat-num">100%</div>
+                                <div class="hero-stat-desc">Vested Renewals Day One</div>
+                            </div>
+                            <div class="hero-stat-item">
+                                <div class="hero-stat-num">$0</div>
+                                <div class="hero-stat-desc">Fees for Training &amp; Events</div>
+                            </div>
+                            <div class="hero-stat-item">
+                                <div class="hero-stat-num">#1</div>
+                                <div class="hero-stat-desc">Highest Industry Compensation</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-cards-row">
+                        <div class="hero-mini-card">
+                            <div class="hero-mini-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                            </div>
+                            <div class="hero-mini-text">
+                                <div class="hero-mini-title">Top Producers</div>
+                                <div class="hero-mini-sub">Learn from the best in the field</div>
+                            </div>
+                        </div>
+                        <div class="hero-mini-card">
+                            <div class="hero-mini-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                                </svg>
+                            </div>
+                            <div class="hero-mini-text">
+                                <div class="hero-mini-title">Fresh Leads</div>
+                                <div class="hero-mini-sub">Direct mail &amp; internet leads</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════
+       PRODUCTS
+  ════════════════════════════════ -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="products-header reveal">
+                <span class="section-label">Our Products</span>
+                <h2 class="section-heading">Products &amp; Services</h2>
+                <p>Contract once and offer your clients a full suite of insurance solutions — all through one account.
+                </p>
+            </div>
+
+            <div class="products-grid">
+
+                <!-- 1. Life Insurance -->
+                <article class="product-card reveal reveal-delay-1">
+                    <div class="product-card-accent" style="background: linear-gradient(90deg, #0f2d5e, #1a4a8a);">
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-icon" style="background:#eef2fa;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0f2d5e"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                            </svg>
+                        </div>
+                        <div class="product-name">Life Insurance</div>
+                        <p class="product-desc">Learn more about the product that you can offer your clients for
+                            comprehensive life coverage and financial protection.</p>
+                        <a href="/life" class="product-link">
+                            Learn more
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 2. Medicare -->
+                <article class="product-card reveal reveal-delay-2">
+                    <div class="product-card-accent" style="background: linear-gradient(90deg, #e8a020, #f0b840);">
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-icon" style="background:#fef3dc;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e8a020"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                            </svg>
+                        </div>
+                        <div class="product-name">Medicare</div>
+                        <p class="product-desc">Learn more about the product that you can offer your clients for
+                            Medicare Advantage, Supplement, and Part D plans.</p>
+                        <a href="/medicare" class="product-link">
+                            Learn more
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 3. Retirement -->
+                <article class="product-card reveal reveal-delay-3">
+                    <div class="product-card-accent" style="background: linear-gradient(90deg, #2e7d32, #43a047);">
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-icon" style="background:#e8f5e9;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2e7d32"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <line x1="12" y1="1" x2="12" y2="23" />
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg>
+                        </div>
+                        <div class="product-name">Retirement (Annuity / IRA / ROTH / SEP)</div>
+                        <p class="product-desc">Learn more about the product that you can offer your clients for
+                            retirement planning and wealth accumulation strategies.</p>
+                        <a href="/annuity" class="product-link">
+                            Learn more
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 4. Health Insurance -->
+                <article class="product-card reveal reveal-delay-1">
+                    <div class="product-card-accent" style="background: linear-gradient(90deg, #c62828, #e53935);">
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-icon" style="background:#ffebee;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c62828"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                <polyline points="9 22 9 12 15 12 15 22" />
+                            </svg>
+                        </div>
+                        <div class="product-name">Health Insurance</div>
+                        <p class="product-desc">Learn more about the product that you can offer your clients for
+                            individual and family health insurance coverage.</p>
+                        <a href="/health" class="product-link">
+                            Learn more
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 5. Dental -->
+                <article class="product-card reveal reveal-delay-2">
+                    <div class="product-card-accent" style="background: linear-gradient(90deg, #6a1b9a, #8e24aa);">
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-icon" style="background:#f3e5f5;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6a1b9a"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                                <line x1="9" y1="9" x2="9.01" y2="9" />
+                                <line x1="15" y1="9" x2="15.01" y2="9" />
+                            </svg>
+                        </div>
+                        <div class="product-name">Dental</div>
+                        <p class="product-desc">Learn more about the product that you can offer your clients for dental
+                            insurance plans covering preventive and restorative care.</p>
+                        <a href="/dental" class="product-link">
+                            Learn more
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 6. Vision -->
+                <article class="product-card reveal reveal-delay-3">
+                    <div class="product-card-accent" style="background: linear-gradient(90deg, #00838f, #00acc1);">
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-icon" style="background:#e0f7fa;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00838f"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </div>
+                        <div class="product-name">Vision</div>
+                        <p class="product-desc">Learn more about the product that you can offer your clients for vision
+                            insurance covering exams, glasses, and contacts.</p>
+                        <a href="/vision" class="product-link">
+                            Learn more
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- 7. Property & Casualty -->
+                <article class="product-card reveal reveal-delay-1">
+                    <div class="product-card-accent" style="background: linear-gradient(90deg, #e65100, #f57c00);">
+                    </div>
+                    <div class="product-card-body">
+                        <div class="product-icon" style="background:#fff3e0;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e65100"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                                <polyline points="9 22 9 12 15 12 15 22" />
+                            </svg>
+                        </div>
+                        <div class="product-name">Property &amp; Casualty</div>
+                        <p class="product-desc">Learn more about the product that you can offer your clients for home,
+                            auto, and commercial property &amp; casualty coverage.</p>
+                        <a href="/pc" class="product-link">
+                            Learn more
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Pagination dots -->
+            <div class="products-dots" aria-hidden="true">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════
+       WHY AGENCY.AC
+  ════════════════════════════════ -->
+    <section class="why" id="why">
+        <div class="container">
+            <div class="why-inner">
+
+                <!-- Left -->
+                <div class="why-left reveal">
+                    <span class="section-label">Why Choose Us</span>
+                    <h2 class="section-heading">The 5 Reasons Why This Is The Best Place For You</h2>
+                    <p>We've built Agency.ac around what independent agents actually need — maximum compensation, zero
+                        overhead, and the tools to grow.</p>
+                    <div class="why-badge">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e8a020" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        <div>
+                            <div class="why-badge-text">Trusted by Independent Agents</div>
+                            <div class="why-badge-sub">Across Life, Medicare, Annuity &amp; more</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: 5 items -->
+                <div class="why-right">
+
+                    <div class="why-item reveal reveal-delay-1">
+                        <div class="why-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <line x1="12" y1="1" x2="12" y2="23" />
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg>
+                        </div>
+                        <div class="why-text">
+                            <div class="why-title">HIGHEST COMPENSATION</div>
+                            <div class="why-desc">Highest compensation in the industry — we make sure you earn what you
+                                deserve from day one.</div>
+                        </div>
+                    </div>
+
+                    <div class="why-item reveal reveal-delay-2">
+                        <div class="why-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                                <line x1="1" y1="10" x2="23" y2="10" />
+                            </svg>
+                        </div>
+                        <div class="why-text">
+                            <div class="why-title">NO FEES</div>
+                            <div class="why-desc">No costs for Training, back office, or events. Everything you need is
+                                included at zero charge.</div>
+                        </div>
+                    </div>
+
+                    <div class="why-item reveal reveal-delay-3">
+                        <div class="why-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            </svg>
+                        </div>
+                        <div class="why-text">
+                            <div class="why-title">VESTED RENEWALS</div>
+                            <div class="why-desc">Fully Vested Renewals From Day One — your book of business is yours,
+                                always.</div>
+                        </div>
+                    </div>
+
+                    <div class="why-item reveal reveal-delay-1">
+                        <div class="why-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>
+                        </div>
+                        <div class="why-text">
+                            <div class="why-title">FRESH LEADS</div>
+                            <div class="why-desc">Direct Mail, Internet, and product-specific leads to keep your
+                                pipeline full and growing.</div>
+                        </div>
+                    </div>
+
+                    <div class="why-item reveal reveal-delay-2">
+                        <div class="why-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                            </svg>
+                        </div>
+                        <div class="why-text">
+                            <div class="why-title">TOP TRAINING</div>
+                            <div class="why-desc">Best Training from active top producers — real-world knowledge from
+                                people who are still in the field.</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════
+       APPLY NOW
+  ════════════════════════════════ -->
+    <section class="apply" id="apply">
+        <div class="container">
+            <div class="apply-inner">
+
+                <!-- Left: info -->
+                <div class="apply-left reveal">
+                    <span class="section-label">Get Started</span>
+                    <h2 class="section-heading">Apply Now</h2>
+                    <p>We love to hear from you to help you get started! Let's talk about how Agency.ac can work for
+                        you.</p>
+
+                    <div class="apply-contact-item">
+                        <div class="apply-contact-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="apply-contact-label">Address</div>
+                            <div class="apply-contact-value">2101 Pear St # 461<br>Pinole, CA 94564</div>
+                        </div>
+                    </div>
+
+                    <div class="apply-contact-item">
+                        <div class="apply-contact-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16.92z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="apply-contact-label">Phone</div>
+                            <div class="apply-contact-value"><a href="tel:4159391382" style="color:inherit;">(415)
+                                    939-1382</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: form -->
+                <div class="apply-form reveal reveal-delay-2">
+                    <form action="#" method="POST" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="first-name">First Name</label>
+                                <input type="text" id="first-name" name="first_name" placeholder="John"
+                                    autocomplete="given-name" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name</label>
+                                <input type="text" id="last-name" name="last_name" placeholder="Smith"
+                                    autocomplete="family-name" required />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Cell Phone</label>
+                                <input type="tel" id="phone" name="phone" placeholder="(415) 000-0000"
+                                    autocomplete="tel" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="john@example.com"
+                                    autocomplete="email" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message"
+                                placeholder="Tell us a bit about yourself and what you're looking for..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gold form-submit">
+                            Submit
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <line x1="22" y1="2" x2="11" y2="13" />
+                                <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════
+       FOOTER
+  ════════════════════════════════ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+
+                <!-- Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">Agency<span>.ac</span></div>
+                    <p class="footer-tagline">Your one stop agency account to contract for Life, Medicare, Annuity,
+                        Health, Dental, Vision, P&amp;C.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Company -->
+                <div class="footer-col">
+                    <div class="footer-col-title">Company</div>
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="#apply">Contact</a></li>
+                        <li><a href="/activities">Activities</a></li>
+                    </ul>
+                </div>
+
+                <!-- Products -->
+                <div class="footer-col">
+                    <div class="footer-col-title">Products &amp; Services</div>
+                    <ul>
+                        <li><a href="/life">Life</a></li>
+                        <li><a href="/medicare">Medicare</a></li>
+                        <li><a href="/annuity">Annuity</a></li>
+                        <li><a href="/health">Health</a></li>
+                        <li><a href="/dental">Dental</a></li>
+                        <li><a href="/vision">Vision</a></li>
+                        <li><a href="/pc">Property &amp; Casualty</a></li>
+                    </ul>
+                </div>
+
+                <!-- Help -->
+                <div class="footer-col">
+                    <div class="footer-col-title">Help &amp; Support</div>
+                    <ul>
+                        <li><a href="/support">Support</a></li>
+                        <li><a href="/policies">Policies</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-copy">&copy; 2026 Agency.ac &middot; All rights reserved</div>
+                <div class="footer-address">2101 Pear St # 461, Pinole, CA 94564 &nbsp;&middot;&nbsp; <a
+                        href="tel:4159391382" style="color:inherit;">(415) 939-1382</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════ -->
+    <script>
+        // ── Hamburger toggle ──
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        hamburger.addEventListener('click', () => {
+            const isOpen = mobileNav.classList.toggle('open');
+            hamburger.classList.toggle('open', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Close mobile nav when a link is clicked
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('open');
+                hamburger.classList.remove('open');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ── Nav scroll shadow ──
+        const nav = document.getElementById('nav');
+        const onScroll = () => {
+            nav.classList.toggle('scrolled', window.scrollY > 10);
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // ── Scroll reveal (IntersectionObserver) ──
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+        revealEls.forEach(el => observer.observe(el));
+
+        // ── Active dot on product scroll (decorative) ──
+        const dots = document.querySelectorAll('.dot');
+        const cards = document.querySelectorAll('.product-card');
+        const cardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const idx = Array.from(cards).indexOf(entry.target);
+                    if (idx >= 0) {
+                        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        cards.forEach(card => cardObserver.observe(card));
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+{
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "rewrites": [
+        {
+            "source": "/",
+            "destination": "/saad.html"
+        },
+        {
+            "source": "/home",
+            "destination": "/saad.html"
+        },
+        {
+            "source": "/about",
+            "destination": "/about.html"
+        },
+        {
+            "source": "/life",
+            "destination": "/life.html"
+        },
+        {
+            "source": "/medicare",
+            "destination": "/medicare.html"
+        },
+        {
+            "source": "/annuity",
+            "destination": "/annuity.html"
+        },
+        {
+            "source": "/health",
+            "destination": "/health.html"
+        },
+        {
+            "source": "/dental",
+            "destination": "/dental.html"
+        },
+        {
+            "source": "/vision",
+            "destination": "/vision.html"
+        },
+        {
+            "source": "/pc",
+            "destination": "/pc.html"
+        },
+        {
+            "source": "/activities",
+            "destination": "/activities.html"
+        }
+    ]
+}

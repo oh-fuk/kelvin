@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About — Agency.ac</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        /* ── RESET & BASE ── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a2332;
+            background: #ffffff;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ── DESIGN TOKENS ── */
+        :root {
+            --navy: #0f2d5e;
+            --gold: #e8a020;
+            --gold-light: #fef3dc;
+            --slate: #5a6a7a;
+            --light: #f7f9fc;
+            --border: #e4eaf2;
+            --white: #ffffff;
+            --radius: 12px;
+            --shadow: 0 2px 16px rgba(15, 45, 94, .08);
+            --shadow-hover: 0 8px 32px rgba(15, 45, 94, .14);
+            --transition: .25s ease;
+        }
+
+        /* ── UTILITIES ── */
+        .container {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: .75rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            background: var(--gold-light);
+            padding: 4px 14px;
+            border-radius: 100px;
+            margin-bottom: 16px;
+        }
+
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.2;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 28px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: .9375rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+            min-height: 48px;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+
+        .btn-gold:hover {
+            background: #cf8e18;
+            border-color: #cf8e18;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(232, 160, 32, .35);
+        }
+
+        /* ── SCROLL REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: .1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: .2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: .3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: .4s;
+        }
+
+        /* ════════════════════════════════
+       NAV
+    ════════════════════════════════ */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow var(--transition);
+        }
+
+        .nav.scrolled {
+            box-shadow: 0 2px 20px rgba(15, 45, 94, .1);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -.01em;
+        }
+
+        .nav-logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            font-size: .875rem;
+            font-weight: 500;
+            color: var(--slate);
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: color var(--transition), background var(--transition);
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: var(--navy);
+            background: var(--light);
+        }
+
+        .nav-links a.active {
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-cta {
+            padding: 9px 20px;
+            font-size: .875rem;
+            min-height: 40px;
+        }
+
+        .nav-fb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--light);
+            color: var(--navy);
+            transition: background var(--transition), color var(--transition);
+        }
+
+        .nav-fb:hover {
+            background: #1877f2;
+            color: var(--white);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background var(--transition);
+        }
+
+        .hamburger:hover {
+            background: var(--light);
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--navy);
+            border-radius: 2px;
+            transition: transform .3s ease, opacity .3s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            background: var(--white);
+            border-top: 1px solid var(--border);
+            padding: 16px 24px 24px;
+            gap: 4px;
+        }
+
+        .mobile-nav.open {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            font-size: .9375rem;
+            font-weight: 500;
+            color: var(--slate);
+            padding: 12px 8px;
+            border-bottom: 1px solid var(--border);
+            transition: color var(--transition);
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--navy);
+        }
+
+        .mobile-nav .btn {
+            margin-top: 12px;
+            justify-content: center;
+        }
+
+        /* ════════════════════════════════
+       PAGE HERO
+    ════════════════════════════════ */
+        .page-hero {
+            background: var(--light);
+            padding: 72px 0 64px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-hero-inner {
+            max-width: 640px;
+        }
+
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.25rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: var(--navy);
+            line-height: 1.1;
+            letter-spacing: -.02em;
+            margin-bottom: 16px;
+        }
+
+        .page-hero p {
+            font-size: 1.0625rem;
+            color: var(--slate);
+            line-height: 1.7;
+            max-width: 560px;
+        }
+
+        /* ════════════════════════════════
+       ABOUT MAIN
+    ════════════════════════════════ */
+        .about-main {
+            background: var(--white);
+            padding: 96px 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+
+        /* Left col */
+        .about-left {}
+
+        .about-left h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 12px;
+            line-height: 1.25;
+        }
+
+        .about-left p {
+            font-size: 1rem;
+            color: var(--slate);
+            line-height: 1.75;
+            margin-bottom: 36px;
+        }
+
+        .about-left .btn {
+            margin-top: 8px;
+        }
+
+        /* Right col — dark navy card */
+        .about-right {}
+
+        .about-values-card {
+            background: var(--navy);
+            border-radius: 20px;
+            padding: 40px 36px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-values-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(232, 160, 32, .12);
+            border-radius: 50%;
+        }
+
+        .about-values-card::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: -40px;
+            width: 140px;
+            height: 140px;
+            background: rgba(255, 255, 255, .04);
+            border-radius: 50%;
+        }
+
+        .value-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            position: relative;
+            z-index: 1;
+        }
+
+        .value-item+.value-item {
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        .value-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(232, 160, 32, .18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .value-icon svg {
+            color: var(--gold);
+        }
+
+        .value-text {}
+
+        .value-title {
+            font-size: .9375rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 6px;
+            letter-spacing: .01em;
+        }
+
+        .value-desc {
+            font-size: .875rem;
+            color: rgba(255, 255, 255, .65);
+            line-height: 1.6;
+        }
+
+        /* ════════════════════════════════
+       STATS BAND
+    ════════════════════════════════ */
+        .stats-band {
+            background: var(--light);
+            padding: 72px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        .stat-box {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 40px 32px;
+            text-align: center;
+            transition: box-shadow var(--transition), transform var(--transition);
+        }
+
+        .stat-box:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: var(--navy);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-number span {
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: .9375rem;
+            font-weight: 500;
+            color: var(--slate);
+            letter-spacing: .02em;
+        }
+
+        /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+        .footer {
+            background: var(--navy);
+            color: rgba(255, 255, 255, .75);
+            padding: 72px 0 0;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 56px;
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .footer-logo span {
+            color: var(--gold);
+        }
+
+        .footer-tagline {
+            font-size: .875rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            max-width: 240px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, .7);
+            transition: background var(--transition), color var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: #1877f2;
+            color: var(--white);
+        }
+
+        .footer-col-title {
+            font-size: .8125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col ul a {
+            font-size: .875rem;
+            color: rgba(255, 255, 255, .65);
+            transition: color var(--transition);
+        }
+
+        .footer-col ul a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            padding: 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy {
+            font-size: .8125rem;
+            color: rgba(255, 255, 255, .45);
+        }
+
+        .footer-address {
+            font-size: .8125rem;
+            color: rgba(255, 255, 255, .45);
+            text-align: right;
+        }
+
+        /* ════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .nav-links,
+            .nav-right {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-hero {
+                padding: 48px 0 40px;
+            }
+
+            .about-main {
+                padding: 64px 0;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .stats-band {
+                padding: 56px 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-address {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ════════════════════════════════
+       NAV
+  ════════════════════════════════ -->
+    <header class="nav" id="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="/" class="nav-logo">Agency<span>.ac</span></a>
+
+                <nav class="nav-links" aria-label="Primary navigation">
+                    <a href="/">Home</a>
+                    <a href="/about" class="active">About</a>
+                    <a href="/#products">Products &amp; Services</a>
+                    <a href="/medicare">Medicare</a>
+                    <a href="/annuity">Annuity</a>
+                    <a href="/activities">Activities</a>
+                </nav>
+
+                <div class="nav-right">
+                    <a href="/#apply" class="btn btn-gold nav-cta">Contact Us</a>
+                    <a href="https://www.facebook.com" target="_blank" rel="noopener" class="nav-fb"
+                        aria-label="Facebook">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                        </svg>
+                    </a>
+                </div>
+
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+
+        <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/#products">Products &amp; Services</a>
+            <a href="/medicare">Medicare</a>
+            <a href="/annuity">Annuity</a>
+            <a href="/activities">Activities</a>
+            <a href="/#apply" class="btn btn-gold">Contact Us</a>
+        </nav>
+    </header>
+
+    <!-- ════════════════════════════════
+       PAGE HERO
+  ════════════════════════════════ -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-inner">
+                <div class="reveal">
+                    <span class="section-label">About Us</span>
+                </div>
+                <h1 class="reveal reveal-delay-1">About Agency.ac</h1>
+                <p class="reveal reveal-delay-2">As a brokerage, we help agencies and agents get appointed/contracted
+                    with many carriers as independent agency and agents/brokers.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════
+       ABOUT MAIN
+  ════════════════════════════════ -->
+    <section class="about-main">
+        <div class="container">
+            <div class="about-grid">
+
+                <!-- Left col -->
+                <div class="about-left">
+
+                    <div class="reveal">
+                        <h2>Who We Are</h2>
+                        <p>As a brokerage, we help agencies and agents get appointed/contracted with many carriers as
+                            independent agency and agents/brokers.</p>
+                    </div>
+
+                    <div class="reveal reveal-delay-1">
+                        <h2>Our Mission</h2>
+                        <p>Our mission is to provide everyone the opportunity to build their independent business in the
+                            financial &amp; insurance industry by helping with insurance companies contracting and
+                            resources for independent agencies and producers to get started, grow or expand.</p>
+                    </div>
+
+                    <div class="reveal reveal-delay-2">
+                        <a href="/#products" class="btn btn-gold">
+                            Explore Products to Get Contracted
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- Right col — dark navy card -->
+                <div class="about-right reveal reveal-delay-1">
+                    <div class="about-values-card">
+
+                        <!-- 1. Independent Agency -->
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                                    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+                                    <line x1="12" y1="12" x2="12" y2="16" />
+                                    <line x1="10" y1="14" x2="14" y2="14" />
+                                </svg>
+                            </div>
+                            <div class="value-text">
+                                <div class="value-title">Independent Agency</div>
+                                <div class="value-desc">We work with you as an independent agency, giving you full
+                                    control of your business.</div>
+                            </div>
+                        </div>
+
+                        <!-- 2. For Agents & Agencies -->
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                            </div>
+                            <div class="value-text">
+                                <div class="value-title">For Agents &amp; Agencies</div>
+                                <div class="value-desc">Whether you're a solo producer or running an agency, we have the
+                                    right contracts for you.</div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Grow & Expand -->
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                                    <polyline points="17 6 23 6 23 12" />
+                                </svg>
+                            </div>
+                            <div class="value-text">
+                                <div class="value-title">Grow &amp; Expand</div>
+                                <div class="value-desc">Resources and support to help you start, grow, or expand your
+                                    book of business.</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════
+       STATS BAND
+  ════════════════════════════════ -->
+    <section class="stats-band">
+        <div class="container">
+            <div class="stats-grid">
+
+                <div class="stat-box reveal">
+                    <div class="stat-number">50<span>+</span></div>
+                    <div class="stat-label">Carrier Partners</div>
+                </div>
+
+                <div class="stat-box reveal reveal-delay-1">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Insurance Lines</div>
+                </div>
+
+                <div class="stat-box reveal reveal-delay-2">
+                    <div class="stat-number" style="font-size: clamp(2rem, 4vw, 3rem);">CA</div>
+                    <div class="stat-label">Licensed &amp; Based</div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════
+       FOOTER
+  ════════════════════════════════ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+
+                <!-- Brand -->
+                <div class="footer-brand">
+                    <div class="footer-logo">Agency<span>.ac</span></div>
+                    <p class="footer-tagline">Your one stop agency account to contract for Life, Medicare, Annuity,
+                        Health, Dental, Vision, P&amp;C.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Company -->
+                <div class="footer-col">
+                    <div class="footer-col-title">Company</div>
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/#apply">Contact</a></li>
+                        <li><a href="/activities">Activities</a></li>
+                    </ul>
+                </div>
+
+                <!-- Products & Services -->
+                <div class="footer-col">
+                    <div class="footer-col-title">Products &amp; Services</div>
+                    <ul>
+                        <li><a href="/life">Life</a></li>
+                        <li><a href="/medicare">Medicare</a></li>
+                        <li><a href="/annuity">Annuity</a></li>
+                        <li><a href="/health">Health</a></li>
+                        <li><a href="/dental">Dental</a></li>
+                        <li><a href="/vision">Vision</a></li>
+                        <li><a href="/pc">P&amp;C</a></li>
+                    </ul>
+                </div>
+
+                <!-- Help & Support -->
+                <div class="footer-col">
+                    <div class="footer-col-title">Help &amp; Support</div>
+                    <ul>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Policies</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copy">&copy; 2026 Agency.ac &middot; All rights reserved</p>
+                <p class="footer-address">2101 Pear St # 461, Pinole, CA 94564 &middot; <a href="tel:4159391382"
+                        style="color:inherit;">(415) 939-1382</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ── Hamburger toggle ──
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        hamburger.addEventListener('click', () => {
+            const isOpen = mobileNav.classList.toggle('open');
+            hamburger.classList.toggle('open', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
+
+        // ── Nav scroll shadow ──
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 8);
+        }, { passive: true });
+
+        // ── IntersectionObserver reveal ──
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12 });
+
+        revealEls.forEach(el => observer.observe(el));
+    </script>
+
+</body>
+
+</html>

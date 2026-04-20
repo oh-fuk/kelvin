@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Property &amp; Casualty — Agency.ac</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a2332;
+            background: #ffffff;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        :root {
+            --navy: #0f2d5e;
+            --gold: #e8a020;
+            --gold-light: #fef3dc;
+            --slate: #5a6a7a;
+            --light: #f7f9fc;
+            --border: #e4eaf2;
+            --white: #ffffff;
+            --radius: 12px;
+            --shadow: 0 2px 16px rgba(15, 45, 94, .08);
+            --transition: .25s ease;
+        }
+
+        .container {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
+            font-size: .75rem;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            background: var(--gold-light);
+            padding: 4px 14px;
+            border-radius: 100px;
+        }
+
+        .section-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.2;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 28px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: .9375rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+            min-height: 48px;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+
+        .btn-gold:hover {
+            background: #cf8e18;
+            border-color: #cf8e18;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(232, 160, 32, .35);
+        }
+
+        /* REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .6s ease, transform .6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: .1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: .2s;
+        }
+
+        /* NAV */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow var(--transition);
+        }
+
+        .nav.scrolled {
+            box-shadow: 0 2px 20px rgba(15, 45, 94, .1);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -.01em;
+        }
+
+        .nav-logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-links a {
+            font-size: .875rem;
+            font-weight: 500;
+            color: var(--slate);
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: color var(--transition), background var(--transition);
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: var(--navy);
+            background: var(--light);
+        }
+
+        .nav-links a.active {
+            color: var(--navy);
+            font-weight: 600;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-cta {
+            padding: 9px 20px;
+            font-size: .875rem;
+            min-height: 40px;
+        }
+
+        .nav-fb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--light);
+            color: var(--navy);
+            transition: background var(--transition), color var(--transition);
+        }
+
+        .nav-fb:hover {
+            background: #1877f2;
+            color: var(--white);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background var(--transition);
+        }
+
+        .hamburger:hover {
+            background: var(--light);
+        }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--navy);
+            border-radius: 2px;
+            transition: transform .3s ease, opacity .3s ease;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            background: var(--white);
+            border-top: 1px solid var(--border);
+            padding: 16px 24px 24px;
+            gap: 4px;
+        }
+
+        .mobile-nav.open {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            font-size: .9375rem;
+            font-weight: 500;
+            color: var(--slate);
+            padding: 12px 8px;
+            border-bottom: 1px solid var(--border);
+            transition: color var(--transition);
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--navy);
+        }
+
+        .mobile-nav .btn {
+            margin-top: 12px;
+            justify-content: center;
+        }
+
+        /* PAGE HERO */
+        .page-hero {
+            background: var(--light);
+            padding: 72px 0 64px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-hero-inner {
+            max-width: 760px;
+        }
+
+        .page-hero .section-label {
+            margin-bottom: 16px;
+        }
+
+        .page-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.15;
+            margin-bottom: 16px;
+            letter-spacing: -.02em;
+        }
+
+        .page-hero p {
+            font-size: 1.0625rem;
+            color: var(--slate);
+            line-height: 1.7;
+            max-width: 560px;
+        }
+
+        /* REASONS */
+        .reasons-section {
+            background: var(--white);
+            padding: 80px 0;
+        }
+
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .reason-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 24px;
+            transition: box-shadow .25s, border-color .25s, transform .25s;
+        }
+
+        .reason-card:hover {
+            box-shadow: 0 8px 32px rgba(15, 45, 94, .12);
+            border-color: rgba(232, 160, 32, .4);
+            transform: translateY(-3px);
+        }
+
+        .reason-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--border);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .reason-title {
+            font-size: .9375rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+            letter-spacing: .02em;
+        }
+
+        .reason-desc {
+            font-size: .875rem;
+            color: var(--slate);
+            line-height: 1.7;
+        }
+
+        /* CTA BAND */
+        .cta-band {
+            background: var(--navy);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-band h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 14px;
+        }
+
+        .cta-band p {
+            font-size: 1.0625rem;
+            color: rgba(255, 255, 255, .65);
+            margin-bottom: 32px;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--navy);
+            color: rgba(255, 255, 255, .75);
+            padding: 72px 0 0;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 56px;
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .footer-logo span {
+            color: var(--gold);
+        }
+
+        .footer-tagline {
+            font-size: .875rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            max-width: 240px;
+            color: rgba(255, 255, 255, .55);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, .7);
+            transition: background var(--transition), color var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: #1877f2;
+            color: var(--white);
+        }
+
+        .footer-col-title {
+            font-size: .8125rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .1em;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-col ul a {
+            font-size: .875rem;
+            color: rgba(255, 255, 255, .65);
+            transition: color var(--transition);
+        }
+
+        .footer-col ul a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            padding: 24px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy {
+            font-size: .8125rem;
+            color: rgba(255, 255, 255, .45);
+        }
+
+        .footer-address {
+            font-size: .8125rem;
+            color: rgba(255, 255, 255, .45);
+            text-align: right;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .nav-links,
+            .nav-right {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .reasons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-band {
+                padding: 56px 0;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-address {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <header class="nav" id="nav">
+        <div class="container">
+            <div class="nav-inner">
+                <a href="/" class="nav-logo">Agency<span>.ac</span></a>
+                <nav class="nav-links" aria-label="Primary navigation">
+                    <a href="/">Home</a>
+                    <a href="/about">About</a>
+                    <a href="/#products" class="active">Products &amp; Services</a>
+                    <a href="/medicare">Medicare</a>
+                    <a href="/annuity">Annuity</a>
+                    <a href="/activities">Activities</a>
+                </nav>
+                <div class="nav-right">
+                    <a href="/#apply" class="btn btn-gold nav-cta">Contact Us</a>
+                    <a href="https://www.facebook.com" target="_blank" rel="noopener" class="nav-fb"
+                        aria-label="Facebook">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                        </svg>
+                    </a>
+                </div>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+        <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/#products">Products &amp; Services</a>
+            <a href="/medicare">Medicare</a>
+            <a href="/annuity">Annuity</a>
+            <a href="/activities">Activities</a>
+            <a href="/#apply" class="btn btn-gold">Contact Us</a>
+        </nav>
+    </header>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-inner">
+                <div class="reveal"><span class="section-label">Product</span></div>
+                <h1 class="reveal reveal-delay-1">Property &amp; Casualty</h1>
+                <p class="reveal reveal-delay-2">The Reasons Why This Is The Best Place For You</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2 REASONS -->
+    <section class="reasons-section">
+        <div class="container">
+            <h2 class="section-heading reveal">The Reasons Why This Is The Best Place For You</h2>
+            <div class="reasons-grid">
+                <div class="reason-card reveal reveal-delay-1">
+                    <div class="reason-num">01</div>
+                    <div class="reason-title">HIGHEST COMPENSATION</div>
+                    <div class="reason-desc">Highest compensation in the industry.</div>
+                </div>
+                <div class="reason-card reveal reveal-delay-2">
+                    <div class="reason-num">02</div>
+                    <div class="reason-title">VESTED RENEWALS</div>
+                    <div class="reason-desc">Fully Vested Renewals From Day One and you earn renewal income from prior
+                        years policies.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="cta-band">
+        <div class="container">
+            <h2 class="reveal">Ready to Get Contracted?</h2>
+            <p class="reveal reveal-delay-1">Start earning top P&amp;C commissions today.</p>
+            <a href="/#apply" class="btn btn-gold reveal reveal-delay-2">Apply Now
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">Agency<span>.ac</span></div>
+                    <p class="footer-tagline">Your one stop agency account to contract for Life, Medicare, Annuity,
+                        Health, Dental, Vision, and Property &amp; Casualty insurance.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Company</div>
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/#apply">Contact</a></li>
+                        <li><a href="/activities">Activities</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Product &amp; Services</div>
+                    <ul>
+                        <li><a href="/life">Life</a></li>
+                        <li><a href="/medicare">Medicare</a></li>
+                        <li><a href="/annuity">Annuity</a></li>
+                        <li><a href="/health">Health</a></li>
+                        <li><a href="/dental">Dental</a></li>
+                        <li><a href="/vision">Vision</a></li>
+                        <li><a href="/pc">Property &amp; Casualty</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Help &amp; Support</div>
+                    <ul>
+                        <li><a href="/support">Support</a></li>
+                        <li><a href="/policies">Policies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copy">&copy; 2026 Agency.ac &middot; All rights reserved</div>
+                <div class="footer-address">2101 Pear St # 461, Pinole, CA 94564 &middot; (415) 939-1382</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var hamburger = document.getElementById('hamburger');
+            var mobileNav = document.getElementById('mobile-nav');
+            hamburger.addEventListener('click', function () {
+                var open = mobileNav.classList.toggle('open');
+                hamburger.classList.toggle('open', open);
+                hamburger.setAttribute('aria-expanded', open);
+            });
+            var nav = document.getElementById('nav');
+            window.addEventListener('scroll', function () {
+                nav.classList.toggle('scrolled', window.scrollY > 20);
+            }, { passive: true });
+            var targets = document.querySelectorAll('.reveal');
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+            targets.forEach(function (t) { io.observe(t); });
+            document.querySelectorAll('.page-hero .reveal').forEach(function (el) {
+                setTimeout(function () { el.classList.add('visible'); }, 80);
+            });
+        })();
+    </script>
+</body>
+
+</html>
